@@ -22,7 +22,7 @@ struct WebService {
                     downloadedData.ledInfo = json["ledInfo"].rawValue as! [Int]
                 }
             case .failure(_):
-                print("nill")
+                print("error")
             }
         }
     }

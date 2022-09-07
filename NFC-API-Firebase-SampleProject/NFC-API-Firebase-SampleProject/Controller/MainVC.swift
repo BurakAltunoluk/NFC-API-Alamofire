@@ -19,6 +19,7 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
     @IBOutlet private var loadCardOutled: UIButton!
     @IBOutlet private var mainButton: UIImageView!
     @IBOutlet private var infoText: UILabel!
+    private var viewLed = UIView()
     private var nfcSession: NFCReaderSession?
     private var word = "None"
     private var player: AVPlayer?
@@ -68,37 +69,13 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
     
     //MARK: Functions
     private func ledLightController(x: Int, y: Int, lightOn: Int) {
-        let viewLed = UIView(frame: CGRect(x: y, y: x, width: 50, height: 50))
+        viewLed = UIView(frame: CGRect(x: y, y: x, width: 50, height: 50))
         if lightOn == 1 {
             viewLed.backgroundColor = UIColor(named: "ledOrange")
         } else {
             viewLed.backgroundColor = .lightGray
         }
         mainView.addSubview(viewLed)
-    }
-    
-    private func ledScreenBackgroundView() {
-        mainView = UIView(frame: CGRect(x: 0, y: 0, width: 305, height: 305))
-        mainView.center = view.center
-        view.addSubview(mainView)
-    }
-    
-    private func bottomButtonImageGesture() {
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(buttonFeatures))
-        mainButton.addGestureRecognizer(gesture)
-    }
-    
-    @objc func buttonFeatures() {
-        mainButtonStatu += 1
-        mainButton.transform = mainButton.transform.rotated(by: 45)
-        
-        if mainButtonStatu == 1 {mainButtonStatu = -1
-            stopLedPosition()
-            player?.pause()
-        } else {
-            dataInLedPanel(data: downloadedData.ledInfo)
-            playSound(url: downloadedData.audioLink)
-        }
     }
     
     private func dataInLedPanel(data:[Int]) {
@@ -111,6 +88,33 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
         }
     }
     
+    private func ledScreenBackgroundView() {
+        mainView = UIView(frame: CGRect(x: 0, y: 0, width: 305, height: 305))
+        mainView.center = view.center
+        mainView.tag = 100
+        view.addSubview(mainView)
+    }
+
+    private func bottomButtonImageGesture() {
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(buttonFeatures))
+        mainButton.addGestureRecognizer(gesture)
+    }
+    
+    @objc func buttonFeatures() {
+        mainButtonStatu += 1
+        mainButton.transform = mainButton.transform.rotated(by: 45)
+        
+        if mainButtonStatu == 1 {mainButtonStatu = -1
+            refreshLedScreen()
+            stopLedPosition()
+            player?.pause()
+        } else {
+            refreshLedScreen()
+            dataInLedPanel(data: downloadedData.ledInfo)
+            playSound(url: downloadedData.audioLink)
+        }
+    }
+    
     private func playSound(url: String) {
         guard let url = URL.init(string: url)
         else { return }
@@ -120,7 +124,7 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
     }
     
     @IBAction func loadButton(_ sender: UIButton) {
-        
+     
         if downloadedData.name != "" {
             loadCardOutled.setTitle("Load Card", for: .normal)
             downloadedData.name = ""
@@ -145,6 +149,11 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
                               0,0,0,0,0,0,
                               0,0,0,0,0,0])
     }
-    
+    private func refreshLedScreen() {
+        if let viewWithTag = self.mainView.viewWithTag(100) {
+                viewWithTag.removeFromSuperview()
+            }
+        ledScreenBackgroundView()
+    }
 }
 

@@ -11,20 +11,26 @@ import SwiftyJSON
 
 struct WebService {
     
-    func getData(link:String) {
-        AF.request(link).responseData { datam in
-            switch datam.result {
-            case .success(let value):
-                let json = JSON(value)
-                DispatchQueue.main.async {
-                    downloadedData.name = json["name"].rawValue as! String
-                    downloadedData.audioLink = json["audioLink"].rawValue as! String
-                    downloadedData.ledInfo = json["ledInfo"].rawValue as! [Int]
+    func myCardsList() {
+        DispatchQueue.main.async {
+            AF.request("https://raw.githubusercontent.com/BurakAltunoluk/NFC-API-Alamofire/main/Api/MainAPI.json").responseData { datam in
+                switch datam.result {
+                case .success(let value):
+                    let json = JSON(value)
+                    myCards.picture = json["pictures"].rawValue as! [String]
+                    myCards.name = json["name"].rawValue as! [String]
+                    myCards.audioLink = json["audioLink"].rawValue as! [String]
+                    myCards.ledInfo = json["ledInfo"].rawValue as! [[Int]]
+                    
+                case .failure(_):
+                    print("error")
                 }
-            case .failure(_):
-                print("error")
             }
         }
     }
     
+    func cancelRequestAll () {
+        AF.cancelAllRequests()
+    }
+
 }

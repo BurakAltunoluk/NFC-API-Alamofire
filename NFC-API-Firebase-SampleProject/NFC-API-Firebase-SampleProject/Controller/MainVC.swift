@@ -39,8 +39,8 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if downloadedData.name != "" {
-            infoText.text = downloadedData.name
+        if choosedRow != -1 {
+            infoText.text = myCards.name[choosedRow]
             mainButton.isUserInteractionEnabled = true
             loadCardOutled.setTitle("Eject Card", for: .normal)
         } else {
@@ -100,7 +100,7 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
         mainButton.addGestureRecognizer(gesture)
     }
     
-    @objc func buttonFeatures() {
+    @objc private func buttonFeatures() {
         mainButtonStatu += 1
         mainButton.transform = mainButton.transform.rotated(by: 45)
         
@@ -110,8 +110,8 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
             player?.pause()
         } else {
             refreshLedScreen()
-            dataInLedPanel(data: downloadedData.ledInfo)
-            playSound(url: downloadedData.audioLink)
+            dataInLedPanel(data: myCards.ledInfo[choosedRow])
+            playSound(url: myCards.audioLink[choosedRow])
         }
     }
     
@@ -123,21 +123,21 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
         player?.play()
     }
     
-    @IBAction func loadButton(_ sender: UIButton) {
-     
-        if downloadedData.name != "" {
+    @IBAction private func loadButton(_ sender: UIButton) {
+        
+            myCards.freshData()
+        if  choosedRow != -1 {
             loadCardOutled.setTitle("Load Card", for: .normal)
-            downloadedData.name = ""
-            downloadedData.audioLink = ""
             infoText.text = "Load card media..."
-            downloadedData.ledInfo = [Int]()
             player?.pause()
             mainButton.isUserInteractionEnabled = false
             stopLedPosition()
+            choosedRow = -1
             mainButtonStatu = -1
-            
-        } else {
-            performSegue(withIdentifier: "toCardsVC", sender: nil)
+          
+        } else if choosedRow == -1 {
+            myCards.freshData()
+            performSegue(withIdentifier: "toMyCards", sender: nil)
         }
     }
     

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6071B9A228C54F9300F706DF /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 6071B9A128C54F9300F706DF /* Alamofire */; };
+		607D3B7428CD30AA00C8E267 /* TemporaryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607D3B7328CD30AA00C8E267 /* TemporaryData.swift */; };
+		608CE1FF28CC7DE800D1D806 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608CE1FE28CC7DE800D1D806 /* Reachability.swift */; };
 		608F1BB228C9EF03007F393D /* MyCardsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608F1BB128C9EF03007F393D /* MyCardsVC.swift */; };
 		608F1BB428C9F1EC007F393D /* MyCardsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608F1BB328C9F1EC007F393D /* MyCardsCell.swift */; };
 		608F1BB828CA9465007F393D /* MediaCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 608F1BB728CA9464007F393D /* MediaCard.swift */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		607D3B7328CD30AA00C8E267 /* TemporaryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemporaryData.swift; sourceTree = "<group>"; };
+		608CE1FE28CC7DE800D1D806 /* Reachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		608F1BB128C9EF03007F393D /* MyCardsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCardsVC.swift; sourceTree = "<group>"; };
 		608F1BB328C9F1EC007F393D /* MyCardsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCardsCell.swift; sourceTree = "<group>"; };
 		608F1BB728CA9464007F393D /* MediaCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaCard.swift; sourceTree = "<group>"; };
@@ -76,6 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				6092DC7E28C68693003E8CC0 /* WebService.swift */,
+				608CE1FE28CC7DE800D1D806 /* Reachability.swift */,
+				607D3B7328CD30AA00C8E267 /* TemporaryData.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -145,10 +151,10 @@
 		60F8030828C3E32700E0140C /* NFC-API-Firebase-SampleProject */ = {
 			isa = PBXGroup;
 			children = (
+				6092DC7928C68608003E8CC0 /* Service */,
 				6092DC7C28C68635003E8CC0 /* Model */,
 				6092DC7B28C68623003E8CC0 /* Controller */,
 				6092DC7A28C6861B003E8CC0 /* View */,
-				6092DC7928C68608003E8CC0 /* Service */,
 				60F8031D28C4BE0200E0140C /* NFC-API-Firebase-SampleProject.entitlements */,
 				60F8030928C3E32700E0140C /* AppDelegate.swift */,
 				60F8030B28C3E32700E0140C /* SceneDelegate.swift */,
@@ -278,11 +284,13 @@
 			files = (
 				60F8030E28C3E32700E0140C /* MainVC.swift in Sources */,
 				608F1BB428C9F1EC007F393D /* MyCardsCell.swift in Sources */,
+				607D3B7428CD30AA00C8E267 /* TemporaryData.swift in Sources */,
 				60F8030A28C3E32700E0140C /* AppDelegate.swift in Sources */,
 				60F8030C28C3E32700E0140C /* SceneDelegate.swift in Sources */,
 				6092DC7F28C68693003E8CC0 /* WebService.swift in Sources */,
 				608F1BB228C9EF03007F393D /* MyCardsVC.swift in Sources */,
 				608F1BB828CA9465007F393D /* MediaCard.swift in Sources */,
+				608CE1FF28CC7DE800D1D806 /* Reachability.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

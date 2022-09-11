@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -14,11 +14,11 @@
             <objects>
                 <viewController storyboardIdentifier="MainVC" id="BYZ-38-t0r" customClass="MainVC" customModule="NFC_API_Firebase_SampleProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button" translatesAutoresizingMaskIntoConstraints="NO" id="7CZ-Gz-AO8">
-                                <rect key="frame" x="157" y="738" width="100" height="100"/>
+                                <rect key="frame" x="145" y="686" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="4tC-99-vcr"/>
                                     <constraint firstAttribute="width" constant="100" id="kL3-KR-8X3"/>
@@ -40,25 +40,33 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Load card media..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="wuY-0H-wl5">
-                                <rect key="frame" x="10" y="134" width="394" height="40.5"/>
+                                <rect key="frame" x="10" y="134" width="370" height="40.666666666666657"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="37"/>
                                 <color key="textColor" red="0.83707767720000004" green="0.45303058619999997" blue="0.32937511800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="NtU-lw-kdj">
+                                <rect key="frame" x="172" y="54" width="37" height="40"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.79613894054678225" green="0.79766882520362559" blue="0.82101465861002598" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="NtU-lw-kdj" firstAttribute="bottom" secondItem="DhH-hz-9MP" secondAttribute="bottom" id="6zr-Do-5Ew"/>
                             <constraint firstItem="DhH-hz-9MP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="CCo-Ly-wqp"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="7CZ-Gz-AO8" secondAttribute="bottom" constant="24" id="Qqz-dI-H91"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wuY-0H-wl5" secondAttribute="trailing" constant="10" id="aHn-3j-xmT"/>
+                            <constraint firstItem="NtU-lw-kdj" firstAttribute="leading" secondItem="DhH-hz-9MP" secondAttribute="trailing" constant="8" symbolic="YES" id="adQ-o1-md5"/>
                             <constraint firstItem="7CZ-Gz-AO8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="btJ-qy-MaZ"/>
                             <constraint firstItem="wuY-0H-wl5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="cxY-sy-a5q"/>
+                            <constraint firstItem="NtU-lw-kdj" firstAttribute="top" secondItem="DhH-hz-9MP" secondAttribute="top" id="d9S-ZY-EhR"/>
+                            <constraint firstItem="NtU-lw-kdj" firstAttribute="centerY" secondItem="DhH-hz-9MP" secondAttribute="centerY" id="l6m-jI-0mY"/>
                             <constraint firstItem="wuY-0H-wl5" firstAttribute="top" secondItem="DhH-hz-9MP" secondAttribute="bottom" constant="40" id="ou7-Eh-FxJ"/>
                             <constraint firstItem="DhH-hz-9MP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="rR5-ea-DSQ"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="NtU-lw-kdj" id="IVq-c2-53s"/>
                         <outlet property="infoText" destination="wuY-0H-wl5" id="azV-Jq-rEE"/>
                         <outlet property="loadCardOutled" destination="DhH-hz-9MP" id="zuI-mL-fjR"/>
                         <outlet property="mainButton" destination="7CZ-Gz-AO8" id="O8b-ob-zeu"/>
@@ -74,11 +82,11 @@
             <objects>
                 <viewController storyboardIdentifier="myCards" id="GpX-Bf-hfh" customClass="MyCardsVC" customModule="NFC_API_Firebase_SampleProject" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dcn-ny-V5A">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" semanticContentAttribute="forceLeftToRight" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IfF-zo-CDI">
-                                <rect key="frame" x="15" y="109.5" width="384" height="621.5"/>
+                                <rect key="frame" x="15" y="110" width="360" height="569"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hW1-Ey-NJk">
                                     <size key="itemSize" width="168" height="252"/>
@@ -113,13 +121,13 @@
                                 </connections>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="My Cards" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="EaO-BD-Vq5">
-                                <rect key="frame" x="10" y="49" width="394" height="40.5"/>
+                                <rect key="frame" x="10" y="49" width="370" height="41"/>
                                 <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="37"/>
                                 <color key="textColor" red="0.83707767720000004" green="0.45303058619999997" blue="0.32937511800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wY1-p9-lLZ">
-                                <rect key="frame" x="139" y="781" width="136" height="31"/>
+                                <rect key="frame" x="127" y="729" width="136" height="31"/>
                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="136" id="Fna-Vi-vUV"/>
@@ -137,11 +145,27 @@
                                 <rect key="frame" x="335" y="48" width="48" height="43"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b3T-uj-AE4">
+                                <rect key="frame" x="30" y="52" width="40" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="0g9-mH-FkE"/>
+                                    <constraint firstAttribute="height" constant="35" id="eOf-J4-NMf"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="arrow.up.arrow.down" catalog="system" title=" ">
+                                    <color key="baseBackgroundColor" red="0.83707767720000004" green="0.45303058619999997" blue="0.32937511800000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="refreshButton:" destination="GpX-Bf-hfh" eventType="touchUpInside" id="2aI-pp-dVT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iZ2-RJ-2yc"/>
                         <color key="backgroundColor" red="0.79623609780000004" green="0.7956704497" blue="0.81961113210000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
+                            <constraint firstItem="b3T-uj-AE4" firstAttribute="leading" secondItem="iZ2-RJ-2yc" secondAttribute="leading" constant="30" id="0wK-r2-YMG"/>
                             <constraint firstItem="IfF-zo-CDI" firstAttribute="top" secondItem="EaO-BD-Vq5" secondAttribute="bottom" constant="20" id="9JF-jD-pOV"/>
+                            <constraint firstItem="b3T-uj-AE4" firstAttribute="centerY" secondItem="EaO-BD-Vq5" secondAttribute="centerY" id="CeR-En-Nja"/>
                             <constraint firstItem="EaO-BD-Vq5" firstAttribute="leading" secondItem="iZ2-RJ-2yc" secondAttribute="leading" constant="10" id="DWy-ye-7Nd"/>
                             <constraint firstItem="iZ2-RJ-2yc" firstAttribute="trailing" secondItem="IfF-zo-CDI" secondAttribute="trailing" constant="15" id="Ejg-Rn-73a"/>
                             <constraint firstItem="iZ2-RJ-2yc" firstAttribute="trailing" secondItem="EaO-BD-Vq5" secondAttribute="trailing" constant="10" id="PCP-OS-ZgK"/>
@@ -155,14 +179,16 @@
                     <connections>
                         <outlet property="activityIndicator" destination="jve-b1-hH6" id="daW-k2-7sF"/>
                         <outlet property="cardCollectionView" destination="IfF-zo-CDI" id="c0g-l1-Foq"/>
+                        <outlet property="refreshButton" destination="b3T-uj-AE4" id="C2P-8P-2vy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcq-jy-g6J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="884" y="66"/>
+            <point key="canvasLocation" x="882.60869565217399" y="65.625"/>
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.up.arrow.down" catalog="system" width="128" height="98"/>
         <image name="arrowshape.turn.up.backward.fill" catalog="system" width="128" height="106"/>
         <image name="button" width="226" height="228"/>
     </resources>

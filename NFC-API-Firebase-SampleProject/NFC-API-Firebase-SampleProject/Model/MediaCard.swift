@@ -12,16 +12,9 @@ struct MediaCard {
     var name: [String]
     var audioLink: [String]
     var ledInfo: [[Int]]
-    
-    mutating func freshData () {
-    picture = [String]()
-    name = [String]()
-    audioLink = [String]()
-    ledInfo = [[Int]]()
-    }
+    var imageDatam = [Data]()
 }
 
-var myCards = MediaCard(picture: [String](), name: [String](), audioLink: [String](), ledInfo: [[Int]]())
 
 
-var choosedRow = -1
+

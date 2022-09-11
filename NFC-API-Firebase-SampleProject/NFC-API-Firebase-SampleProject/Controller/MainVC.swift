@@ -16,24 +16,29 @@ import SwiftyJSON
 final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
     
     //MARK: Properties
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet private var loadCardOutled: UIButton!
     @IBOutlet private var mainButton: UIImageView!
     @IBOutlet private var infoText: UILabel!
-    private var viewLed = UIView()
     private var nfcSession: NFCReaderSession?
-    private var word = "None"
+    private var mainView = UIView()
+    private var viewLed = UIView()
     private var player: AVPlayer?
     private var timer = Timer()
+    private var word = "None"
     private var mainButtonStatu = -1
-    private var mainView = UIView()
     private var scanLedPixel = -1
     private var ledPixelRow = [0,51,102,153,204,255]
     
     //MARK: Life Cycles
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadCardOutled.isEnabled = false
+        activityIndicator.startAnimating()
+        WebService().myCardsList()
         bottomButtonImageGesture()
         ledScreenBackgroundView()
+        dataControl()
         stopLedPosition()
     }
     
@@ -47,7 +52,7 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
             loadCardOutled.setTitle("Load Card", for: .normal)
         }
     }
-    
+   
     //MARK: NFC
     func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
         print("\(error.localizedDescription)")
@@ -94,24 +99,26 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
         mainView.tag = 100
         view.addSubview(mainView)
     }
-
+    
     private func bottomButtonImageGesture() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(buttonFeatures))
         mainButton.addGestureRecognizer(gesture)
     }
     
     @objc private func buttonFeatures() {
-        mainButtonStatu += 1
-        mainButton.transform = mainButton.transform.rotated(by: 45)
-        
-        if mainButtonStatu == 1 {mainButtonStatu = -1
-            refreshLedScreen()
-            stopLedPosition()
-            player?.pause()
-        } else {
-            refreshLedScreen()
-            dataInLedPanel(data: myCards.ledInfo[choosedRow])
-            playSound(url: myCards.audioLink[choosedRow])
+        if Reachability.isConnectedToNetwork(){
+            mainButtonStatu += 1
+            mainButton.transform = mainButton.transform.rotated(by: 45)
+            
+            if mainButtonStatu == 1 {mainButtonStatu = -1
+                refreshLedScreen()
+                stopLedPosition()
+                player?.pause()
+            } else {
+                refreshLedScreen()
+                dataInLedPanel(data: myCards.ledInfo[choosedRow])
+                playSound(url: myCards.audioLink[choosedRow])
+            }
         }
     }
     
@@ -125,35 +132,65 @@ final class MainVC: UIViewController, NFCNDEFReaderSessionDelegate {
     
     @IBAction private func loadButton(_ sender: UIButton) {
         
-            myCards.freshData()
-        if  choosedRow != -1 {
-            loadCardOutled.setTitle("Load Card", for: .normal)
-            infoText.text = "Load card media..."
-            player?.pause()
-            mainButton.isUserInteractionEnabled = false
-            stopLedPosition()
-            choosedRow = -1
-            mainButtonStatu = -1
-          
-        } else if choosedRow == -1 {
-            myCards.freshData()
-            performSegue(withIdentifier: "toMyCards", sender: nil)
+        if Reachability.isConnectedToNetwork(){
+            if  choosedRow != -1 {
+                
+                loadCardOutled.setTitle("Load Card", for: .normal)
+                infoText.text = "Load card media..."
+                player?.pause()
+                mainButton.isUserInteractionEnabled = false
+                stopLedPosition()
+                choosedRow = -1
+                mainButtonStatu = -1
+                
+            } else if choosedRow == -1 {
+                
+                performSegue(withIdentifier: "toMyCards", sender: nil)
+            }
+            
+        }else{
+            alertMenu()
         }
+        
+        
     }
     
     private func stopLedPosition() {
         dataInLedPanel(data: [  0,0,0,0,0,0,
-                              0,0,0,0,0,0,
-                              0,0,1,1,0,0,
-                              0,0,1,1,0,0,
-                              0,0,0,0,0,0,
-                              0,0,0,0,0,0])
+                                0,0,0,0,0,0,
+                                0,0,1,1,0,0,
+                                0,0,1,1,0,0,
+                                0,0,0,0,0,0,
+                                0,0,0,0,0,0])
     }
+    
     private func refreshLedScreen() {
         if let viewWithTag = self.mainView.viewWithTag(100) {
-                viewWithTag.removeFromSuperview()
-            }
+            viewWithTag.removeFromSuperview()
+        }
         ledScreenBackgroundView()
     }
+    
+    private func dataControl() {
+        timer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(prepareData), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func prepareData() {
+        if myCards.name.count > 0 {
+            timer.invalidate()
+            activityIndicator.stopAnimating()
+            activityIndicator.isHidden = true
+            loadCardOutled.isEnabled = true
+            
+        }
+    }
+    func alertMenu() {
+        let alert = UIAlertController(title: "Connection Failed", message: "No Internet Connection", preferredStyle: UIAlertController.Style.alert)
+        let alertAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { UIAlertAction in
+        }
+        alert.addAction(alertAction)
+        present(alert, animated: true)
+    }
+
 }
 
